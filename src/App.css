@@ -19,3 +19,17 @@
 body {
   font-family: var(--font-dm-sans);
 }
+
+.app {
+  height: 100vh;
+}
+
+main {
+  max-width: 1400px;
+  width: 95%;
+  margin: auto;
+}
+
+.page-title {
+  line-height: 1.2;
+} 
