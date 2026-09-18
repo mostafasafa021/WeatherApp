@@ -32,4 +32,9 @@ main {
 
 .page-title {
   line-height: 1.2;
-} 
+}
+
+form {
+  max-width: 800px;
+  margin: auto;
+}
