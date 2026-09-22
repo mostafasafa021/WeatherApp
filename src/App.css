@@ -38,3 +38,16 @@ form {
   max-width: 800px;
   margin: auto;
 }
+
+.loading {
+  animation: infinite loading 3s;
+  width: 25px;
+  height: 25px;
+  display: inline-block;
+}
+
+@keyframes loading {
+  100% {
+    transform: rotate(360deg);
+  }
+}
