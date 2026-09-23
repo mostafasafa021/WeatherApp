@@ -4,7 +4,7 @@ import dropdownIcon from "../assets/images/icon-dropdown.svg";
 const SettingButton = () => {
   return (
     <div className="setting-btn-wrapper relative">
-      <button className="text-white flex gap-2.5 bg-neutral-700 py-3 px-4.5 rounded-[6px] cursor-pointer setting-btn">
+      <button className="text-white flex gap-2.5 bg-neutral-700 py-3 px-4.5 rounded-md cursor-pointer setting-btn">
         <img src={unitsIcon} alt="" />
         Units
         <img src={dropdownIcon} alt="" />

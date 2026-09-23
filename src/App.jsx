@@ -9,42 +9,57 @@ function App() {
   const [searchResults, setSearchResults] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [searchResultsLoading, setSearchResultsLoading] = useState(false);
-  const [isNoResults, setIsNoResults] = useState(false)
-
-  console.log(selectedCountry);
+  const [isNoResults, setIsNoResults] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!searchResults[0]) return;
 
-    console.log(searchResults[0])
+    console.log(searchResults[0]);
+    setSearchResults([]);
+    setSearchTerm("");
   };
 
   const handleClick = (id) => {
     const clickedCountry = searchResults.find((country) => country.id === id);
     setSelectedCountry(clickedCountry);
+    setSearchResults([]);
+    setSearchTerm("");
   };
 
   useEffect(() => {
     if (searchTerm === "" || searchTerm.length < 2) return;
-    setSearchResultsLoading(true)
+    setSearchResultsLoading(true);
+    const controller = new AbortController();
     axios
       .get(
         `https://geocoding-api.open-meteo.com/v1/search?name=${searchTerm}&count=4`,
+        {
+          signal: controller.signal,
+        },
       )
       .then((response) => {
         if (!response.data.results) {
-          setIsNoResults(true)
-          setSearchResults([])
+          setIsNoResults(true);
+          setSearchResults([]);
           return;
         }
-        setSearchResults(response.data.results)
-        setIsNoResults(false)
+        setSearchResults(response.data.results);
+        setIsNoResults(false);
+      })
+      .catch((err) => {
+        if (axios.isCancel(err)) {
+          console.log(`Reqeust canceled`, err);
+        } else {
+          console.log("Request Error", err);
+        }
       })
       .finally(() => setSearchResultsLoading(false));
 
     return () => {
       setSearchResults([]);
+      setIsNoResults(false);
+      controller.abort();
     };
   }, [searchTerm]);
 
