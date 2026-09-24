@@ -28,7 +28,7 @@ function App() {
   };
 
   useEffect(() => {
-    if (searchTerm === "" || searchTerm.length < 2) return;
+    if (searchTerm.length < 2) return;
     setSearchResultsLoading(true);
     const controller = new AbortController();
     axios
