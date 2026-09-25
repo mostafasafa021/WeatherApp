@@ -10,6 +10,13 @@ function App() {
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [searchResultsLoading, setSearchResultsLoading] = useState(false);
   const [isNoResults, setIsNoResults] = useState(false);
+  const [weatherUnits, setWeatherUnits] = useState({
+    tempUnit: "celsius",
+    windUnit: "kmh",
+    precipitationUnit: "mm",
+  });
+
+  console.log(weatherUnits)
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -66,7 +73,7 @@ function App() {
   return (
     <div className="app bg-neutral-900">
       <main className="pt-10 px-5 md:px-10">
-        <Header />
+        <Header weatherUnits={weatherUnits} setWeatherUnits={setWeatherUnits}/>
         <h1 className="text-white text-6xl tracking-wider font-semibold page-title text-center my-15 font-bricolage-grotesque">
           How's the sky looking today?
         </h1>

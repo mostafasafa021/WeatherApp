@@ -15,7 +15,7 @@ const SearchField = ({
       <div className="input-wrapper relative flex-1">
         <input
           type="text"
-          className="text-white bg-neutral-700 py-4 rounded-xl pl-15 pr-5 w-full placeholder:text-[#f1f1f4] placeholder:tracking-wide cursor-pointer focus:border-3 focus:border-neutral-900 focus:outline-white focus:outline-2 "
+          className="text-white bg-neutral-700 py-4 rounded-xl pl-15 pr-5 w-full placeholder:text-[#f1f1f4] placeholder:tracking-wide cursor-pointer focus:border-3 focus:border-neutral-900 focus:outline-white focus:outline-2"
           placeholder="Search for a place..."
           aria-label="Search for a place"
           value={searchTerm}

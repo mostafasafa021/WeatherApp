@@ -25,7 +25,7 @@ body {
 }
 
 main {
-  max-width: 1400px;
+  max-width: 1500px;
   width: 95%;
   margin: auto;
 }
@@ -35,7 +35,7 @@ main {
 }
 
 form {
-  max-width: 800px;
+  max-width: 850px;
   margin: auto;
 }
 
@@ -50,4 +50,12 @@ form {
   100% {
     transform: rotate(360deg);
   }
+}
+
+.unit-option:has(input:checked) {
+  background-color: var(--color-neutral-700);
+}
+
+.unit-option:has(input:checked)::after {
+  content: url("./assets/images/icon-checkmark.svg");
 }
