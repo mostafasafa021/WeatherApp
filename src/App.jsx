@@ -51,7 +51,7 @@ function App() {
     if (searchTerm.length < 2) return;
     setSearchResultsLoading(true);
     const controller = new AbortController();
-    getCountriesData(searchTerm)
+    getCountriesData(searchTerm, controller.signal)
       .then((data) => {
         setIsError(false);
         if (!data.results) {
@@ -64,10 +64,10 @@ function App() {
         setIsNoResults(false);
       })
       .catch((err) => {
-        setIsError(true);
         if (axios.isCancel(err)) {
           console.log(`Reqeust canceled`, err);
         } else {
+          setIsError(true);
           console.log("Request Error", err);
         }
       })
