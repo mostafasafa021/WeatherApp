@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import "./App.css";
 import axios from "axios";
 import Header from "./components/Header";
@@ -11,6 +11,7 @@ function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [selectedPlace, setSelectedPlace] = useState(null);
+  const selectedPlaceRef = useRef(null);
   const [searchResultsLoading, setSearchResultsLoading] = useState(false);
   const [isNoResults, setIsNoResults] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -21,9 +22,12 @@ function App() {
     precipitationUnit: "mm",
   });
 
+  console.log("Selected Place:", selectedPlace);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!searchResults[0]) return;
+    selectedPlaceRef.current = searchResults[0];
     setSelectedPlace(searchResults[0]);
     setSearchResults([]);
     setSearchTerm("");
@@ -31,15 +35,19 @@ function App() {
 
   const handleClick = (id) => {
     const clickedCountry = searchResults.find((country) => country.id === id);
+    selectedPlaceRef.current = clickedCountry;
     setSelectedPlace(clickedCountry);
     setSearchResults([]);
     setSearchTerm("");
   };
 
   useEffect(() => {
+    if (selectedPlaceRef.current) return;
     getCountriesData("berlin")
       .then((data) => {
-        setSelectedPlace(data.results[0]);
+        if (selectedPlaceRef.current === null) {
+          setSelectedPlace(data.results[0]);
+        }
         setIsError(false);
       })
       .catch((err) => {
@@ -106,6 +114,8 @@ function App() {
         <WeatherWidget
           selectedPlace={selectedPlace}
           weatherUnits={weatherUnits}
+          isError={isError}
+          setIsError={setIsError}
         />
       </main>
     </div>
