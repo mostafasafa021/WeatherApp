@@ -116,6 +116,7 @@ function App() {
           weatherUnits={weatherUnits}
           isError={isError}
           setIsError={setIsError}
+          retryCount={retryCount}
         />
       </main>
     </div>
