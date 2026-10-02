@@ -19,13 +19,13 @@ const HourlyForecastData = ({
           {days.map((day) => (
             <li
               className="hourly-forecast-day-option"
-              key={day}
+              key={day.dayName}
               onClick={() => {
-                onDayChange(day);
+                onDayChange(day.dayName);
                 document.querySelector(".hourly-forecast-day").click();
               }}
             >
-              {day}
+              {day.dayName}
             </li>
           ))}
         </ul>

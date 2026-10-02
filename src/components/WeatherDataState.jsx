@@ -12,24 +12,15 @@ import DailyForecastData from "./DailyForecastData";
 import HourlyForecastData from "./HourlyForecastData";
 import WeatherMetrics from "./WeatherMetrics";
 
-const forecastDays = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
-
-const handleTimeChange = (dayname) => {
-  const today = new Date();
-
-  const currentDay = today.getDay();
-  const targetDay = forecastDays.indexOf(dayname);
-
+const handleTimeChange = (dayName, forecastDays) => {
+  const currentDay = 0;
+  const targetDay = forecastDays.map((day) => day.dayName).indexOf(dayName);
   const diffrence = targetDay - currentDay;
+  console.log(targetDay)
+  const today = new Date(forecastDays[0].date);
+
   today.setDate(today.getDate() + diffrence);
+
   return today.toISOString().slice(0, 10);
 };
 
@@ -107,6 +98,7 @@ const WeatherDataState = ({ weatherData, selectedPlace, weatherUnits }) => {
     condition: getCondition(daily.weather_code[index]),
     high: Math.round(daily.temperature_2m_max[index]),
     low: Math.round(daily.temperature_2m_min[index]),
+    dayName: formatDate(date, { weekday: "long" }),
   }));
   const hourlyForecast = currentHours.map(
     ({ time, temperature, weatherCode }) => ({
@@ -139,7 +131,7 @@ const WeatherDataState = ({ weatherData, selectedPlace, weatherUnits }) => {
     },
   ];
   const handleDayChange = (day) => {
-    setSelectedDate(handleTimeChange(day));
+    setSelectedDate(handleTimeChange(day, dailyForecast));
   };
 
   return (
@@ -167,7 +159,7 @@ const WeatherDataState = ({ weatherData, selectedPlace, weatherUnits }) => {
       </div>
 
       <HourlyForecastData
-        days={forecastDays}
+        days={dailyForecast}
         currentDate={formatDate(currentDate, { weekday: "long" })}
         hours={hourlyForecast}
         temperatureUnit={temperatureUnit}
