@@ -62,7 +62,7 @@ function App() {
     getCountriesData(searchTerm, controller.signal)
       .then((data) => {
         setIsError(false);
-        if (!data.results) {
+        if (!data.results?.length) {
           setIsNoResults(true);
           setSearchResults([]);
           setIsError(false);
